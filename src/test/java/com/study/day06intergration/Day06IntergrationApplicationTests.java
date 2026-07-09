@@ -1,10 +1,10 @@
-package com.study.day06integration;
+package com.study.day06intergration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Day06IntegrationApplicationTests {
+class Day06IntergrationApplicationTests {
 
     @Test
     void contextLoads() {

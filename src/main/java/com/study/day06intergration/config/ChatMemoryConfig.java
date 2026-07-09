@@ -1,4 +1,4 @@
-package com.study.day06integration.config;
+package com.study.day06intergration.config;
 
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
@@ -19,9 +19,9 @@ public class ChatMemoryConfig {
                 .build();
     }
 
-    // In Memory 용 ChatMemory 구현 저장소 설정
-    @Bean("JDBCMemoryChatMemory")
-    public ChatMemory JDBCMemoryChatMemory(JdbcChatMemoryRepository jdbcChatMemoryRepository) {
+    // JDBC 용도.
+    @Bean("jdbcMemoryChatMemory")
+    public ChatMemory jdbcMemoryChatMemory(JdbcChatMemoryRepository jdbcChatMemoryRepository) {
         return MessageWindowChatMemory.builder()
                 .chatMemoryRepository(jdbcChatMemoryRepository)
                 .maxMessages(20)

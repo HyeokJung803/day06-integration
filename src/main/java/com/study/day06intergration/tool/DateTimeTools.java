@@ -1,4 +1,4 @@
-package com.study.day06integration.tool;
+package com.study.day06intergration.tool;
 
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.context.i18n.LocaleContextHolder;

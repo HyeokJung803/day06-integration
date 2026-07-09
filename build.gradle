@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.study'
 version = '0.0.1-SNAPSHOT'
-description = 'day06-integration'
+description = 'day06-intergration'
 
 java {
     toolchain {
@@ -23,15 +23,15 @@ ext {
 }
 
 dependencies {
-
+    // JDBC, postgres, ai memory jdbc 추가
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.ai:spring-ai-starter-model-chat-memory-repository-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'
 
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.ai:spring-ai-starter-model-google-genai'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

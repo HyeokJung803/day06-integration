@@ -1,4 +1,4 @@
-package com.study.day06integration.service;
+package com.study.day06intergration.service;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,10 @@ public class ChatService {
         return chatClient.prompt().user(question).call().content();
     }
 
+    // stream으로 반환
     public Flux<String> askStream(String question) {
-        return chatClient.prompt()
-                .user(question)
-                .stream().content();
+        return chatClient.prompt().
+                user(question).stream().content();
     }
 
 }

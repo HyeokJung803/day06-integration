@@ -1,9 +1,8 @@
-package com.study.day06integration.service;
+package com.study.day06intergration.service;
 
-
-import com.study.day06integration.tool.CompanyRuleTools;
-import com.study.day06integration.tool.CustomerTools;
-import com.study.day06integration.tool.DateTimeTools;
+import com.study.day06intergration.tool.CompanyRuleTools;
+import com.study.day06intergration.tool.CustomerTools;
+import com.study.day06intergration.tool.DateTimeTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -20,7 +19,7 @@ public class HelpdeskService {
     private final CompanyRuleTools companyRuleTools;
 
     public HelpdeskService(ChatClient.Builder builder,
-                           @Qualifier("JDBCMemoryChatMemory") ChatMemory chatMemory,
+                           @Qualifier("jdbcMemoryChatMemory") ChatMemory chatMemory,
                            DateTimeTools dateTimeTools,
                            CustomerTools customerTools,
                            CompanyRuleTools companyRuleTools) {
@@ -41,23 +40,23 @@ public class HelpdeskService {
         this.companyRuleTools = companyRuleTools;
     }
 
-    public String chat(String question, String conversationId) {
-        return chatClient.prompt()
-                .user(question)
-                .tools(dateTimeTools, customerTools, companyRuleTools) // 도구
-                .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, conversationId)) // 기억
-                .call()
-                .content();
-    }
+        public String chat(String question, String conversationId) {
+            return chatClient.prompt()
+                    .user(question)
+                    .tools(dateTimeTools, customerTools, companyRuleTools) // 도구
+                    .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, conversationId)) // 기억
+                    .call()
+                    .content();
+        }
 
+    // call -> stream
     public Flux<String> chatStream(String question, String conversationId) {
         return chatClient.prompt()
                 .user(question)
                 .tools(dateTimeTools, customerTools, companyRuleTools) // 도구
                 .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, conversationId)) // 기억
-                .stream()
+                .stream()   // call -> stream
                 .content();
     }
-
 
 }
