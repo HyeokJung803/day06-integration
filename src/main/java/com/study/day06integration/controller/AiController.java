@@ -31,15 +31,16 @@ public class AiController {
 
     // 토큰이 도착하는대로 흘려 보냄
     // 브라우저가 EventSource.로 소비하도록
-    @GetMapping("/api/stream")
-    private Flux<ServerSentEvent<StreamChunk>> stream(@RequestParam String question) {
-        Flux<ServerSentEvent<StreamChunk>> token =  chatService.askStream(question)
+
+
+    @GetMapping("/api//chat/stream")
+    private Flux<ServerSentEvent<StreamChunk>> helpdeskStream(@RequestParam String question,
+                                                      @RequestParam String conversationId) {
+        Flux<ServerSentEvent<StreamChunk>> token =  helpdeskService.chatStream(question, conversationId)
                 .map(chunk -> ServerSentEvent.builder(new StreamChunk(chunk)).build());
 
         Mono<ServerSentEvent<StreamChunk>> done = Mono.just(ServerSentEvent.<StreamChunk>builder(new StreamChunk("")).event("done").build());
 
         return token.concatWith(done);
-
-
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 @Service
 public class HelpdeskService {
@@ -19,7 +20,7 @@ public class HelpdeskService {
     private final CompanyRuleTools companyRuleTools;
 
     public HelpdeskService(ChatClient.Builder builder,
-                           @Qualifier("inMemoryChatMemory") ChatMemory chatMemory,
+                           @Qualifier("JDBCMemoryChatMemory") ChatMemory chatMemory,
                            DateTimeTools dateTimeTools,
                            CustomerTools customerTools,
                            CompanyRuleTools companyRuleTools) {
@@ -46,6 +47,15 @@ public class HelpdeskService {
                 .tools(dateTimeTools, customerTools, companyRuleTools) // 도구
                 .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, conversationId)) // 기억
                 .call()
+                .content();
+    }
+
+    public Flux<String> chatStream(String question, String conversationId) {
+        return chatClient.prompt()
+                .user(question)
+                .tools(dateTimeTools, customerTools, companyRuleTools) // 도구
+                .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, conversationId)) // 기억
+                .stream()
                 .content();
     }
 

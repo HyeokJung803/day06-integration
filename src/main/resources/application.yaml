@@ -25,6 +25,11 @@ spring:
         chat:
           model: gemini-3.1-flash-lite
         api-key: ${GOOGLE_API_KEY}
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
   servlet:
     multipart:
       max-file-size: 10MB
@@ -32,6 +37,11 @@ spring:
   web:
     error:
       include-message: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/helpdesk
+    username: helpdesk
+    password: helpdesk
+
 
 logging:
   level:
